@@ -1,0 +1,40 @@
+{
+    "name": "hoathis/symfony-console-bridge",
+    "description": "The Hoa\\Console Symfony 2 bridge.",
+    "type"       : "library",
+    "keywords"   : ["library", "symfony", "console", "bridge"],
+    "homepage"   : "http://hoa-project.net/",
+    "license"    : "BSD-3-Clause",
+    "authors"    : [
+        {
+            "name": "Julien Bianchi",
+            "email": "julien.bianchi@hoa-project.net"
+        },
+        {
+            "name" : "Ivan Enderlin",
+            "email": "ivan.enderlin@hoa-project.net"
+        },
+        {
+            "name"    : "Hoa community",
+            "homepage": "http://hoa-project.net/"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.3",
+        "hoa/console": "*",
+        "symfony/console": "~2.3.6"
+    },
+    "require-dev": {
+        "atoum/atoum": "dev-master"
+    },
+    "target-dir": "Hoathis/SymfonyConsoleBridge",
+    "autoload": {
+        "psr-0": {
+            "Hoathis\\SymfonyConsoleBridge": "."
+        }
+    },
+    "config": {
+        "bin-dir": "bin/"
+    }
+}
