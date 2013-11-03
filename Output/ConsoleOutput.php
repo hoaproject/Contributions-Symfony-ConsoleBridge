@@ -14,23 +14,36 @@ class ConsoleOutput extends BaseOutput
 
     protected function hasColorSupport()
     {
-        return Console::isDirect($this->getStream()) && parent::hasColorSupport();
+        if (DIRECTORY_SEPARATOR == '\\') {
+            return false !== getenv('ANSICON') || 'ON' === getenv('ConEmuANSI');
+        }
+
+        return Console::isDirect($this->getStream());
     }
 
     public function setDecorated($decorated)
     {
         parent::setDecorated($this->decorated = $decorated);
+
+        return $this;
     }
 
     public function isDecorated()
     {
         if (null === $this->decorated) {
-            $this->decorated = Console::isDirect($this->getStream());
+            $this->decorated = $this->hasColorSupport();
 
             $this->setDecorated($this->decorated);
         }
 
         return $this->decorated;
+    }
+
+    public function setVerbosity($level)
+    {
+        parent::setVerbosity($this->verbosity = $level);
+
+        return $this;
     }
 
     public function getVerbosity()
@@ -51,7 +64,7 @@ class ConsoleOutput extends BaseOutput
                     $level = OutputInterface::VERBOSITY_NORMAL;
             }
 
-            $this->verbosity = $level;
+            $this->setVerbosity($level);
         }
 
         return $this->verbosity;
@@ -62,5 +75,7 @@ class ConsoleOutput extends BaseOutput
         $formatter->setDecorated($this->isDecorated());
 
         parent::setFormatter($formatter);
+
+        return $this;
     }
 } 

@@ -18,34 +18,36 @@ class ReadlineHelper extends Helper
         return self::NAME;
     }
 
-    public function __construct()
+    public function __construct(Readline $readline = null)
     {
-        $this->readline = new Readline();
+        $this->readline = $readline ?: new Readline();
     }
 
     public function read(OutputInterface $output, $message, $default = null)
     {
         $message .= ($default ? sprintf(' (<comment>%s</comment>)', $default) : '');
-
-        if ($output->isDecorated()) {
-            $formatter = $output->getFormatter();
-            $message = $formatter->format($message);
-        }
+        $message = $output->getFormatter()->format($message);
 
         return $this->readline->readLine($message) ?: $default;
     }
 
-    public function select(OutputInterface $output, $message, array $choices, $default = null, $keyAsValues = false, $multi = false)
+    public function select(OutputInterface $output, $message, array $choices, $default = null, $keyAsValues = false, $multi = false, Word $autocompleter)
     {
         $words = array();
-        $values = $keyAsValues ? ($keys = array_keys($choices)) : array_values($choices);
+        $values = $keyAsValues ? array_keys($choices) : array_values($choices);
         foreach($choices as $key => $value) {
             if($value !== self::SEPARATOR) {
                 $words[] = $keyAsValues ? $key : $value;
             }
         }
 
-        $this->readline->setAutocompleter(new Word($words));
+        if (null === $autocompleter) {
+            $autocompleter = new Word($words);
+        } else {
+            $autocompleter->setWords($words);
+        }
+
+        $this->readline->setAutocompleter($autocompleter);
 
         $first = true;
         foreach ($choices as $key => $value) {
@@ -56,12 +58,20 @@ class ReadlineHelper extends Helper
                     $message .= ($first ? '' : PHP_EOL) . $key;
                 }
             } else {
-                $message .= PHP_EOL . sprintf(
-                    '%s%s: %s',
-                    null !== $default && $key === $default ? '* ' : '  ',
-                    sprintf($keyAsValues ? '<comment>%s</comment>' : '%s', $key),
-                    sprintf($keyAsValues ? '%s' : '<comment>%s</comment>', $value)
-                );
+                if($keyAsValues) {
+                    $message .= PHP_EOL . sprintf(
+                        '%s%s: %s',
+                        null !== $default && $key === $default ? '* ' : '  ',
+                        sprintf($keyAsValues ? '<comment>%s</comment>' : '%s', $key),
+                        sprintf($keyAsValues ? '%s' : '<comment>%s</comment>', $value)
+                    );
+                } else {
+                    $message .= PHP_EOL . sprintf(
+                        '%s%s',
+                        null !== $default && $value === $default ? '* ' : '  ',
+                        sprintf($keyAsValues ? '%s' : '<comment>%s</comment>', $value)
+                    );
+                }
             }
 
             $first = false;

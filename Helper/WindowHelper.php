@@ -47,6 +47,8 @@ class WindowHelper extends Helper
         declare(ticks = 1);
 
         event('hoa://Event/Console/Window:resize')->attach($callback);
+
+        return $this;
     }
 
     public function setSize(OutputInterface $output, $width, $height)
@@ -135,7 +137,7 @@ class WindowHelper extends Helper
         ob_start();
 
         if ($output->isDecorated()) {
-            $code($this);
+            $code();
         }
 
         $output->write(ob_get_clean());

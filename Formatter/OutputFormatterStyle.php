@@ -27,11 +27,22 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
         return $this;
     }
 
+    public function getForeground()
+    {
+        return $this->foreground;
+    }
+
+
     public function setBackground($color = null)
     {
         $this->background = $color;
 
         return $this;
+    }
+
+    public function getBackground()
+    {
+        return $this->background;
     }
 
     public function setOption($option)
@@ -57,6 +68,11 @@ class OutputFormatterStyle implements OutputFormatterStyleInterface
         }
 
         return $this;
+    }
+
+    public function getOptions()
+    {
+        return $this->options;
     }
 
     public function apply($text)

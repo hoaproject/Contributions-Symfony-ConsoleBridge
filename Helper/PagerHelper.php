@@ -3,7 +3,6 @@
 namespace Hoathis\SymfonyConsoleBridge\Helper;
 
 use Symfony\Component\Console\Helper\Helper;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class PagerHelper extends Helper
@@ -17,15 +16,15 @@ class PagerHelper extends Helper
 
     public function more(OutputInterface $output, $code, $display = false)
     {
-        $this->paginate(__FUNCTION__, $output, $code, $display);
+        return $this->paginate(__FUNCTION__, $output, $code, $display);
     }
 
     public function less(OutputInterface $output, $code, $display = false)
     {
-        $this->paginate(__FUNCTION__, $output, $code, $display);
+        return $this->paginate(__FUNCTION__, $output, $code, $display);
     }
 
-    protected function paginate($type, ConsoleOutputInterface $output, $code, $display = false)
+    protected function paginate($type, OutputInterface $output, $code, $display = false)
     {
         if (true ===  $output->isDecorated()) {
             ob_start('Hoa\Console\Chrome\Pager::' . $type);
@@ -40,5 +39,7 @@ class PagerHelper extends Helper
         if (false ===  $output->isDecorated() || true === $display) {
             $output->write($content);
         }
+
+        return $this;
     }
 }

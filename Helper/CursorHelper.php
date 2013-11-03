@@ -44,6 +44,8 @@ class CursorHelper extends Helper
     public function moveTo(OutputInterface $output, $x, $y)
     {
         $this->buffer($output, function() use ($x, $y) { Cursor::moveTo($x, $y); });
+
+        return $this;
     }
 
     public function clear(OutputInterface $output, $parts)
@@ -73,6 +75,10 @@ class CursorHelper extends Helper
 
     public function colorize(OutputInterface $output, $attributes)
     {
+        if (is_array($attributes)) {
+            $attributes = implode(' ', $attributes);
+        }
+
         $this->buffer($output, function() use ($attributes) { Cursor::colorize($attributes); });
 
         return $this;
@@ -81,13 +87,6 @@ class CursorHelper extends Helper
     public function reset(OutputInterface $output)
     {
         return $this->colorize($output, 'n fg(default) bg(default)');
-    }
-
-    public function color(OutputInterface $output, $from, $to)
-    {
-        $this->buffer($output, function() use ($from, $to) { Cursor::changeColor($from, $to); });
-
-        return $this;
     }
 
     public function style(OutputInterface $output, $style, $blink = true)
@@ -121,7 +120,7 @@ class CursorHelper extends Helper
 
     public function restore(OutputInterface $output)
     {
-        $this->buffer($output, function() { Cursor::save(); });
+        $this->buffer($output, function() { Cursor::restore(); });
 
         return $this;
     }
@@ -131,7 +130,7 @@ class CursorHelper extends Helper
         ob_start();
 
         if ($output->isDecorated()) {
-            $code($this);
+            $code();
         }
 
         $output->write(ob_get_clean());
