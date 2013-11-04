@@ -20,10 +20,11 @@ Add these lines to your `require-dev` section:
 
 ```json
 {
-    "require-dev": {
+    "require": {
         "hoa/core": "*@dev",
         "hoa/console": "*@dev",
         "hoa/string": "*@dev",
+        "hoa/stream": "*@dev",
         "hoathis/symfony-console-bridge": "dev-master"
     }
 }
