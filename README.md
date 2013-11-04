@@ -7,12 +7,12 @@ Moreover, Hoa aims at being a bridge between industrial and research worlds.
 
 * [Installation](#installation)
 * [How to use](#how-to-use)
- * [Formatter](#formatter)
- * [Helpers](#helpers)
-  * [Window](#window)
-  * [Cursor](#cursor)
-  * [Readline](#readline)
-  * [Pager](#pager)
+  * [Formatter](#formatter)
+  * [Helpers](#helpers)
+    * [Window](#window)
+    * [Cursor](#cursor)
+    * [Readline](#readline)
+    * [Pager](#pager)
 
 ## Installation
 
