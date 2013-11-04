@@ -7,6 +7,16 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyleInterface;
 
 class OutputFormatterStyle implements OutputFormatterStyleInterface
 {
+    const STYLE_NORMAL = 'n';
+    const STYLE_BOLD = 'b';
+    const STYLE_NOT_BOLD = '!b';
+    const STYLE_UNDERLINED = 'u';
+    const STYLE_NOT_UNDERLINED = '!u';
+    const STYLE_BLINK = 'bl';
+    const STYLE_NOT_BLINK = '!bl';
+    const STYLE_INVERSE = 'b';
+    const STYLE_NOT_INVERSE = '!i';
+
     protected $foreground;
     protected $background;
     protected $options = array();
