@@ -19,10 +19,12 @@
             "homepage": "http://hoa-project.net/"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "php": ">=5.3.3",
-        "hoa/console": "*",
+        "hoa/core": "*@dev",
+        "hoa/console": "*@dev",
+        "hoa/string": "*@dev",
+        "hoa/stream": "*@dev",
         "symfony/console": "~2.3.6"
     },
     "require-dev": {
