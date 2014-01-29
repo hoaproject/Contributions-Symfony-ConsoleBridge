@@ -31,7 +31,7 @@ class ReadlineHelper extends Helper
         return $this->readline->readLine($message) ?: $default;
     }
 
-    public function select(OutputInterface $output, $message, array $choices, $default = null, $keyAsValues = false, $multi = false, Word $autocompleter)
+    public function select(OutputInterface $output, $message, array $choices, $default = null, $keyAsValues = false, $multi = false, Word $autocompleter = null)
     {
         $words = array();
         $values = $keyAsValues ? array_keys($choices) : array_values($choices);
