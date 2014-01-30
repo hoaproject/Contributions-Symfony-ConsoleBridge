@@ -101,7 +101,7 @@ namespace Hoathis\SymfonyConsoleBridge\Tests\Units\Helper {
                         ->isInstanceOf('InvalidArgumentException')
                         ->hasMessage('Argument is not callable')
                     ->object($helper->resize($callback = function() {}))->isIdenticalTo($helper)
-                    ->function('event')->wasCalledWithArguments('hoa://Event/Console/Window:resize')
+                    ->function('event')->wasCalledWithArguments('hoa://Event/Console/Window:resize')->once()
                     ->mock($event)->call('attach')->withArguments($callback)->once()
             ;
         }

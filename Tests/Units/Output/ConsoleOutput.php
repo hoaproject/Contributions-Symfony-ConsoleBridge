@@ -96,7 +96,7 @@ namespace Hoathis\SymfonyConsoleBridge\Tests\Units\Output {
             $this
                 ->given($console = Console::getInstance())
                 ->and($this->calling($console)->isDirect = false)
-                ->and($formatter = new \mock\Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatter())
+                ->and($formatter = new \mock\Symfony\Component\Console\Formatter\OutputFormatter())
                 ->if($output = new TestedClass())
                 ->then
                     ->object($output->setFormatter($formatter))->isIdenticalTo($output)

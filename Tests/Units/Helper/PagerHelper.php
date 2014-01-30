@@ -34,8 +34,8 @@ class PagerHelper extends atoum
             ->if($helper = new TestedClass())
             ->then
                 ->object($helper->less($output, function() {}))->isIdenticalTo($helper)
-                ->function('ob_start')->wasCalledWithoutAnyArgument()
-                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()
+                ->function('ob_start')->wasCalledWithArguments(null, null, null)->once()
+                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()->once()
                 ->mock($output)
                     ->call('write')->never()
             ->given($this->resetFunction($this->function->ob_start))
@@ -43,8 +43,8 @@ class PagerHelper extends atoum
             ->and($this->calling($output)->isDecorated = true)
             ->then
                 ->object($helper->less($output, function() {}))->isIdenticalTo($helper)
-                ->function('ob_start')->wasCalledWithArguments('Hoa\Console\Chrome\Pager::less')
-                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()
+                ->function('ob_start')->wasCalledWithArguments('Hoa\Console\Chrome\Pager::less')->once()
+                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()->once()
                 ->mock($output)
                     ->call('write')->never()
             ->given($this->resetFunction($this->function->ob_start))
@@ -69,8 +69,8 @@ class PagerHelper extends atoum
             ->if($helper = new TestedClass())
             ->then
                 ->object($helper->more($output, function() {}))->isIdenticalTo($helper)
-                ->function('ob_start')->wasCalledWithoutAnyArgument()
-                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()
+                ->function('ob_start')->wasCalledWithArguments(null, null, null)->once()
+                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()->once()
                 ->mock($output)
                     ->call('write')->never()
             ->given($this->resetFunction($this->function->ob_start))
@@ -78,8 +78,8 @@ class PagerHelper extends atoum
             ->and($this->calling($output)->isDecorated = true)
             ->then
                 ->object($helper->more($output, function() {}))->isIdenticalTo($helper)
-                ->function('ob_start')->wasCalledWithArguments('Hoa\Console\Chrome\Pager::more')
-                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()
+                ->function('ob_start')->wasCalledWithArguments('Hoa\Console\Chrome\Pager::more')->once()
+                ->function('ob_get_clean')->wasCalledWithoutAnyArgument()->once()
                 ->mock($output)
                     ->call('write')->never()
             ->given($this->resetFunction($this->function->ob_start))

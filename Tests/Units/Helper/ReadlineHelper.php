@@ -3,8 +3,8 @@
 namespace Hoathis\SymfonyConsoleBridge\Tests\Units\Helper;
 
 use atoum;
-use Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatter;
 use Hoathis\SymfonyConsoleBridge\Helper\ReadlineHelper as TestedClass;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 
 class ReadlineHelper extends atoum
 {
@@ -46,7 +46,7 @@ class ReadlineHelper extends atoum
                 ->string($helper->read($output, $message = uniqid()))->isEqualTo($line)
                 ->mock($readline)
                     ->call('readLine')->withArguments($message)->once()
-            ->given($formatter = new \mock\Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatter())
+            ->given($formatter = new \mock\Symfony\Component\Console\Formatter\OutputFormatter())
             ->and($formatter->setDecorated(false))
             ->and($this->calling($output)->getFormatter = $formatter)
             ->then
