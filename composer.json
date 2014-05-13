@@ -32,8 +32,8 @@
     },
     "target-dir": "Hoathis/SymfonyConsoleBridge",
     "autoload": {
-        "psr-0": {
-            "Hoathis\\SymfonyConsoleBridge": "."
+        "psr-4": {
+            "Hoathis\\SymfonyConsoleBridge\\": "."
         }
     },
     "config": {
