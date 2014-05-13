@@ -66,19 +66,19 @@ $app
         $output->writeln('<info>I\'m a decorated text only in the console</info>');
 
         if ($output->getVerbosity() === OutputInterface::VERBOSITY_NORMAL) {
-            $output->writeln('I\'ll with the <comment>normal</comment> verbosity level');
+            $output->writeln('I\'ll be displayed with the <comment>normal</comment> verbosity level');
         }
 
         if ($output->getVerbosity() === OutputInterface::VERBOSITY_VERBOSE) {
-            $output->writeln('I\'ll with the <comment>verbose</comment> verbosity level');
+            $output->writeln('I\'ll be displayed with the <comment>verbose</comment> verbosity level');
         }
 
         if ($output->getVerbosity() === OutputInterface::VERBOSITY_VERY_VERBOSE) {
-            $output->writeln('I\'ll with the <comment>very verbose</comment> verbosity level');
+            $output->writeln('I\'ll be displayed with the <comment>very verbose</comment> verbosity level');
         }
 
         if ($output->getVerbosity() === OutputInterface::VERBOSITY_DEBUG) {
-            $output->writeln('I\'ll with the <comment>debug</comment> verbosity level');
+            $output->writeln('I\'ll be displayed with the <comment>debug</comment> verbosity level');
         }
     })
 ;
@@ -110,11 +110,11 @@ Here are the rules used to determine verbosity level and text decoration support
 
 |          | Verbosity    | Decoration |
 | -------- | ------------ | ---------- |
-| Pipe     | normal       | false      |
-| Redirect | very verbose | false      |
-| Terminal | verbose      | true       |
+| Pipe     | normal       | disabled   |
+| Redirect | very verbose | disabled   |
+| Terminal | verbose      | enabled    |
 
-Those rules will only be used if you do not provide any verbosity level using command line arguents. If you want to
+Those rules will only be used if you do not provide any verbosity level using command line arguments. If you want to
 redirect outputs to a file using the debug verbosity level, simply run:
 
 ```sh
@@ -134,14 +134,14 @@ $ php app.php -vvv --ansi | xargs -0 echo -n | cat -vet
 
 ### Formatter
 
-`Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle` will let you do everything you were able to do with the native `symfony/console` style with some more things:
+`Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle` will let you do everything you were able to do with the native `symfony/console` formatter with some more cool things:
 
 * Supports `xterm-8color` color names
 * Supports `xterm-256color` color codes
 * **Automatically translates hex color codes**
 * Supports text styling (normal, bold, underlined, blink and inverse)
 
-To use those new `OutputFormatterStyle`, you the usual API :
+To use those new `OutputFormatterStyle`, use the usual API :
 
 ```php
 <?php
