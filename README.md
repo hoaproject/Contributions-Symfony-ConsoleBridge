@@ -250,6 +250,51 @@ Many other utility method are available
 
 #### Cursor
 
+The window helper will let you manipulate the cursor. It provides several utility methods, each one
+being bound to an action:
+
+```php
+<?php
+
+use Hoathis\SymfonyConsoleBridge\Example\Application;
+use Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
+$app = new Application();
+
+$app
+    ->register('example:window')
+    ->setCode(function(InputInterface $input, OutputInterface $output) use ($app) {
+        $window = $app->getHelperSet()->get('cursor');
+
+        $colors = ['red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF'];
+
+        foreach ($colors as $index => $color) {
+            $helper->hide($output)->move($output, '←', 20 - ($index * 4));
+            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
+            $helper->move($output, '↓')->move($output, '←', 20);
+            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
+            $helper->move($output, '↑')->bip($output);
+
+            usleep(500000);
+        }
+
+        $helper->move($output, '↓', 2)->reset($output);
+    })
+;
+```
+
+Many other utility method are available
+
+* `move`, `moveTo` to change cursor position, `getPosition` to retrieve current position
+* `save` and `restore` to save and restore cursor position
+* `clear` to clear whole or part of the screen
+* `hide`, `show` and `style` to change cursor display options
+* `colorize` and `reset` to manage text styling
+* `bip` to emit a bell
+
 #### Readline
 
 #### Pager
