@@ -79,7 +79,7 @@ class ReadlineHelper extends Helper
 
         $output->writeln($message);
 
-        return $this->validate(
+        $input = $this->validate(
             $output,
             ': ',
             function($data) use ($values, $multi) {
@@ -93,6 +93,12 @@ class ReadlineHelper extends Helper
             },
             $default
         );
+
+        if (true === $multi) {
+            $input = explode(' ', $input);
+        }
+
+        return $input;
     }
 
     public function validate(OutputInterface $output, $message, $validator, $default = null)
