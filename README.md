@@ -104,11 +104,11 @@ redirecting it to a file.
 
 Here are the rules used to determine verbosity level and text decoration support:
 
-|          | Verbosity    | Decoration |
-| -------- | ------------ | ---------- |
-| Pipe     | normal       | disabled   |
-| Redirect | very verbose | disabled   |
-| Terminal | verbose      | enabled    |
+|              | Verbosity    | Decoration |
+| ------------ | ------------ | ---------- |
+| **Pipe**     | normal       | disabled   |
+| **Redirect** | very verbose | disabled   |
+| **Terminal** | verbose      | enabled    |
 
 Those rules will only be used if you do not provide any verbosity level using command line arguments. If you want to
 redirect outputs to a file using the debug verbosity level, simply run:
