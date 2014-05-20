@@ -52,12 +52,6 @@ Given you have the following command:
 ```php
 <?php
 
-use Hoathis\SymfonyConsoleBridge\Example\Application;
-use Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 $app = new Application();
 
 $app
@@ -82,8 +76,6 @@ $app
         }
     })
 ;
-
-$app->run(new ArgvInput(), new ConsoleOutput());
 ```
 
 Running:
@@ -146,13 +138,6 @@ To use those new `OutputFormatterStyle`, use the usual API :
 ```php
 <?php
 
-namespace Hoathis\SymfonyConsoleBridge\Example;
-
-use Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Application as BaseApplication;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-
 class Application extends BaseApplication
 {
     protected function configureIO(InputInterface $input, OutputInterface $output)
@@ -181,11 +166,6 @@ manually load them:
 ```php
 <?php
 
-namespace Hoathis\SymfonyConsoleBridge\Example;
-
-use Hoathis\SymfonyConsoleBridge\Helper;
-use Symfony\Component\Console\Application as BaseApplication;
-
 class Application extends BaseApplication
 {
     protected function getDefaultHelperSet()
@@ -212,12 +192,6 @@ being bound to an action:
 
 ```php
 <?php
-
-use Hoathis\SymfonyConsoleBridge\Example\Application;
-use Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 $app = new Application();
 
@@ -255,12 +229,6 @@ being bound to an action:
 
 ```php
 <?php
-
-use Hoathis\SymfonyConsoleBridge\Example\Application;
-use Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 $app = new Application();
 
@@ -307,3 +275,25 @@ Many other utility method are available
 #### Readline
 
 #### Pager
+
+The pager helper will let you display outputs through a pager so the user can easily read and scroll at his will. The helper
+provides two pagers: `less` and  `more`. You will have to fedd them using a closure wrapping code producing output:
+
+```php
+<?php
+
+$app = new Application();
+
+$app
+    ->register('helper:pager:less')
+        ->setCode(function(InputInterface $input, OutputInterface $output) use($app) {
+            $pager = $app->getHelperSet()->get('pager');
+
+            $pager->less(
+                $output,
+                function() {
+                    passthru('cat ' . __DIR__ . '/*.php');
+                }
+            );
+        });
+```
