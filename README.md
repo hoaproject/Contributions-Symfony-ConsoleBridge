@@ -16,6 +16,8 @@ Moreover, Hoa aims at being a bridge between industrial and research worlds.
     * [Readline](#readline)
     * [Pager](#pager)
 
+_All the examples in this readme are available and working in the [test application](Tests/Functionals)._
+
 ## Installation
 
 Add these lines to your `require-dev` section:
