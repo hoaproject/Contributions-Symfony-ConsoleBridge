@@ -14,7 +14,7 @@ class Highlighter
     const TOKEN_VALUE = 1;
     const TOKEN_LINE = 2;
 
-    protected $colors    = array(
+    protected $colors = array(
         T_ABSTRACT                 => 'foreground(#5fafd7)',
         T_AS                       => 'foreground(#5fafd7)',
         T_BREAK                    => 'foreground(#5fafd7)',
@@ -67,7 +67,15 @@ class Highlighter
         T_VARIABLE                 => 'foreground(#d7b05f)',
         T_WHILE                    => 'foreground(#5fafd7)',
         T_YIELD                    => 'foreground(#5fafd7)',
-        '*'                        => 'foreground(#fdf6e3)'
+        '*'                        => 'foreground(#fdf6e3)',
+        'gutter' => array(
+            true                   => 'foreground(#eee8d5) background(#073642) bold',
+            false                  => 'foreground(#586e75) background(#002b36) bold'
+        ),
+        'line' => array(
+            true                   => ' background(#374549) bold',
+            false                  => ' background(#073642)'
+        )
     );
 
     protected $tokens = [];
@@ -158,34 +166,24 @@ class Highlighter
 
     public function gutter($linenum, $highlighted = false)
     {
-        $styles = [
-            true => 'foreground(#eee8d5) background(#073642) bold',
-            false => 'foreground(#586e75) background(#002b36) bold'
-        ];
-
-        return Console\Chrome\Text::colorize(sprintf(' %4d ', $linenum), $styles[$highlighted]);
+        return Console\Chrome\Text::colorize(sprintf(' %3d ', $linenum), $this->colors['gutter'][$highlighted]);
     }
 
     public function line($code, $padding, $highlighted = false)
     {
-        $styles = [
-            true => ' background(#374549) bold',
-            false => ' background(#073642)'
-        ];
-
         $content = '';
         foreach($code as $token) {
             $content .= Console\Chrome\Text::colorize(
                 $token[self::TOKEN_VALUE],
                 isset($this->colors[$token[self::TOKEN_TYPE]])
-                    ? $this->colors[$token[self::TOKEN_TYPE]] . $styles[$highlighted]
-                    : $this->colors['*'] . $styles[$highlighted]
+                    ? $this->colors[$token[self::TOKEN_TYPE]] . $this->colors['line'][$highlighted]
+                    : $this->colors['*'] . $this->colors['line'][$highlighted]
             );
         }
 
-        return Console\Chrome\Text::colorize(' ', $styles[$highlighted])
+        return Console\Chrome\Text::colorize(' ', $this->colors['line'][$highlighted])
             . rtrim($content, PHP_EOL)
-            . Console\Chrome\Text::colorize(str_repeat(' ', $padding + 1), $styles[$highlighted])
+            . Console\Chrome\Text::colorize(str_repeat(' ', $padding + 1), $this->colors['line'][$highlighted])
             . PHP_EOL;
     }
 }
