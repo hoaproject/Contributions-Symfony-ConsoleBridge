@@ -274,6 +274,44 @@ Many other utility method are available
 
 #### Readline
 
+The readline helper will help you gather inputs from the user. It provides some methods to ask and validates user's inputs:
+
+* `read` will prompt the user for an input
+* `select` will display a list of choices to the user and let him select one or more values
+* `validate` will keep asking for an input until it validates against a validator you provide
+
+```php
+<?php
+
+$app = new Application();
+
+$app
+    ->register('helper:readline:select')
+        ->addOption('multi', null, InputOption::VALUE_NONE)
+        ->setCode(function(InputInterface $input, OutputInterface $output) use($app) {
+            $readline = $app->getHelperSet()->get('readline');
+
+            $selection = (array) $readline->select(
+                $output,
+                $input->getOption('multi') ? 'Select some values:' : 'Select a value:',
+                [
+                    '<info>php</info>' => ReadlineHelper::SEPARATOR,
+                    'hoa', 'symfony', 'laravel',
+                    '<info>js</info>' => ReadlineHelper::SEPARATOR,
+                    'express', 'connect', 'restify',
+                ],
+                null,
+                false,
+                $input->getOption('multi')
+            );
+
+            $output->writeln(sprintf('<info>You selected</info>: %s', implode(', ', $selection)));
+        });
+```
+
+Note that for `select` you can provide a special choice that will display as a separator using
+`'label' => ReadlineHelper::SEPARATOR` items in you choices list.
+
 #### Pager
 
 The pager helper will let you display outputs through a pager so the user can easily read and scroll at his will. The helper

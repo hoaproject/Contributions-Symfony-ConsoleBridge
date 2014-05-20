@@ -5,28 +5,33 @@ namespace Hoathis\SymfonyConsoleBridge\Tests\Functionals\Commands;
 use Hoathis\SymfonyConsoleBridge\Helper\ReadlineHelper;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 return function(Application $application, callable $highlight) {
     return $application
         ->register('helper:readline:select')
-            ->setDescription('Tests readline select')
+            ->setDescription('Tests readline select multi')
+            ->addOption('multi', null, InputOption::VALUE_NONE)
             ->setCode(function(InputInterface $input, OutputInterface $output) use($application, $highlight) {
                 $helper = new ReadlineHelper();
 
-                $selection = $helper->select(
+                $selection = (array) $helper->select(
                     $output,
-                    'Select a value:',
+                    $input->getOption('multi') ? 'Select some values:' : 'Select a value:',
                     [
                         '<info>php</info>' => ReadlineHelper::SEPARATOR,
                         'hoa', 'symfony', 'laravel',
                         '<info>js</info>' => ReadlineHelper::SEPARATOR,
                         'express', 'connect', 'restify',
-                    ]
+                    ],
+                    null,
+                    false,
+                    $input->getOption('multi')
                 );
 
-                $output->writeln(sprintf('<info>You selected</info>: %s', $selection));
+                $output->writeln(sprintf('<info>You selected</info>: %s', implode(', ', $selection)));
 
-                $highlight(__FILE__, array_merge([5, 15], range(17, 26)), $input, $output);
+                $highlight(__FILE__, array_merge([5, 17], range(19, 31)), $input, $output);
             });
 };
