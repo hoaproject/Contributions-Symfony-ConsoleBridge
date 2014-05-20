@@ -1,0 +1,3 @@
+#!/bin/bash
+
+php $(dirname $(dirname $0))/Tests/Functionals/Application.php $*

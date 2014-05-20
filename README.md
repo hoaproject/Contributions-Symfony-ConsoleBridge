@@ -23,10 +23,10 @@ Add these lines to your `require-dev` section:
 ```json
 {
     "require": {
-        "hoa/core": "*@dev",
         "hoa/console": "*@dev",
-        "hoa/string": "*@dev",
-        "hoa/stream": "*@dev",
+            "hoa/core": "*@dev",
+            "hoa/string": "*@dev",
+            "hoa/stream": "*@dev",
         "hoathis/symfony-console-bridge": "dev-master"
     }
 }
@@ -61,7 +61,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 $app = new Application();
 
 $app
-    ->register('example:output')
+    ->register('output:verbosity')
     ->setCode(function(InputInterface $input, OutputInterface $output) {
         $output->writeln('<info>I\'m a decorated text only in the console</info>');
 
@@ -89,7 +89,7 @@ $app->run(new ArgvInput(), new ConsoleOutput());
 Running:
 
 ```sh
-$ php app.php
+$ bin/console output:verbosity
 # I'm a decorated text only in the console
 # I'll be displayed with the verbose verbosity level
 ```
@@ -97,7 +97,7 @@ $ php app.php
 As you will see in your terminal, output will be decorated and verbose by default. But if you run:
 
 ```sh
-$ php app.php > output
+$ bin/console output:verbosity > output
 $ cat -vet output
 # I'm a decorated text only in the console$
 # I'll be displayed with the very verbose verbosity level$
@@ -118,7 +118,7 @@ Those rules will only be used if you do not provide any verbosity level using co
 redirect outputs to a file using the debug verbosity level, simply run:
 
 ```sh
-$ php app.php -vvv > output
+$ bin/console output:verbosity -vvv > output
 $ cat -vet output
 # I'm a decorated text only in the console$
 # I'll be displayed with the debug verbosity level$
@@ -127,7 +127,7 @@ $ cat -vet output
 You can still force ansi output using the `--ansi` option:
 
 ```sh
-$ php app.php -vvv --ansi | xargs -0 echo -n | cat -vet
+$ bin/console output:verbosity -vvv --ansi | xargs -0 echo -n | cat -vet
 # ^[[38;5;189mI'm a decorated text only in the console^[[39;49;0m$
 # I'll be displayed with the ^[[38;5;96mdebug^[[39;49;0m verbosity level$
 ```
@@ -175,7 +175,7 @@ As you can see in the previous example, you can replace built-in styles by simpl
 
 ### Helpers
 
-The real power of the library are its helpers: they let you manager every terminal components. You will first have to
+The real power of the library comes from its helpers: they let you manager every terminal components. You will first have to
 manually load them:
 
 ```php
@@ -222,7 +222,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 $app = new Application();
 
 $app
-    ->register('example:window')
+    ->register('helper:window:animate')
     ->setCode(function(InputInterface $input, OutputInterface $output) use ($app) {
         $window = $app->getHelperSet()->get('window');
 
@@ -265,30 +265,39 @@ use Symfony\Component\Console\Output\OutputInterface;
 $app = new Application();
 
 $app
-    ->register('example:window')
+    ->register('helper:cursor:draw')
     ->setCode(function(InputInterface $input, OutputInterface $output) use ($app) {
         $window = $app->getHelperSet()->get('cursor');
 
         $colors = ['red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF'];
 
-        foreach ($colors as $index => $color) {
-            $helper->hide($output)->move($output, '←', 20 - ($index * 4));
-            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
-            $helper->move($output, '↓')->move($output, '←', 20);
-            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
-            $helper->move($output, '↑')->bip($output);
+        $helper = new Helper\CursorHelper();
+        $helper->hide($output)->move($output, 'up', 1);
 
-            usleep(500000);
+        foreach ($colors as $index => $color) {
+            $helper->move($output, 'left', 20 - ($index * 4));
+            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
+
+            $helper->move($output, 'down')->move($output, 'left', 20);
+            $output->write(sprintf('<bg=%1$s>%2$s</bg=%1$s>', $color, str_repeat(' ', 20)));
+
+            $helper->move($output, 'up')->bip($output);
+
+            usleep(250000);
         }
 
-        $helper->move($output, '↓', 2)->reset($output);
+        $helper
+            ->move($output, 'down', 2)
+            ->move($output, 'left', 100)
+            ->reset($output)
+            ->show($output);
     })
 ;
 ```
 
 Many other utility method are available
 
-* `move`, `moveTo` to change cursor position, `getPosition` to retrieve current position
+* `move`, `moveTo` to change cursor position, `getPosition` to retrieve the current position
 * `save` and `restore` to save and restore cursor position
 * `clear` to clear whole or part of the screen
 * `hide`, `show` and `style` to change cursor display options

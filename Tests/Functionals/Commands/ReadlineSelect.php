@@ -4,15 +4,14 @@ namespace Hoathis\SymfonyConsoleBridge\Tests\Functionals\Commands;
 
 use Hoathis\SymfonyConsoleBridge\Helper\ReadlineHelper;
 use Symfony\Component\Console\Application;
-use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-return function(Application $application) {
-    $application
+return function(Application $application, callable $highlight) {
+    return $application
         ->register('helper:readline:select')
             ->setDescription('Tests readline select')
-            ->setCode(function(InputInterface $input, OutputInterface $output) use($application) {
+            ->setCode(function(InputInterface $input, OutputInterface $output) use($application, $highlight) {
                 $helper = new ReadlineHelper();
 
                 $selection = $helper->select(
@@ -28,12 +27,6 @@ return function(Application $application) {
 
                 $output->writeln(sprintf('<info>You selected</info>: %s', $selection));
 
-                $application->find('highlight')->run(
-                    new ArrayInput([
-                        'file' => __FILE__,
-                        'lines' => array_merge([5, 16], range(18, 27))
-                    ]),
-                    $output
-                );
+                $highlight(__FILE__, array_merge([5, 15], range(17, 26)), $input, $output);
             });
 };
