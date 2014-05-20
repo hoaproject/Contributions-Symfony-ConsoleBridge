@@ -42,6 +42,8 @@ $ composer update hoathis/symfony-console-bridge
 
 ### Symfony
 
+To use this library with the [Symfony](http://symfony.com) framework, please use the dedacated bundle: [hoathis/symfony-console-bundle](https://github.com/hoaproject/Contributions-Symfony-ConsoleBundle).
+
 ### Output
 
 `Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput` is an alternative to the native `ConsoleOutput` which is able to detect
