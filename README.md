@@ -45,7 +45,7 @@ $ composer update hoathis/symfony-console-bridge
 ### Symfony
 
 To use this library with the [Symfony](http://symfony.com) framework, please use
-the dedacated bundle:
+the dedicated bundle:
 [`hoathis/symfony-console-bundle`](http://central.hoa-project.net/Resource/Contributions/Symfony/ConsoleBundle/).
 
 ### Output
