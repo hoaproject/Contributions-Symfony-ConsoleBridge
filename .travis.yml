@@ -5,7 +5,17 @@ php:
     - 5.4
     - 5.5
 
+env:
+  - SYMFONY_CONSOLE_VERSION=~2.3.6
+  - SYMFONY_CONSOLE_VERSION=2.4.*
+  - SYMFONY_CONSOLE_VERSION=2.5.*@dev
+
+cache:
+  directories:
+    - $COMPOSER_CACHE_DIR
+
 before_script:
+    - composer require --prefer-source --dev symfony/console:${SYMFONY_CONSOLE_VERSION}
     - composer install
 
 script:
