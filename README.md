@@ -44,14 +44,17 @@ $ composer update hoathis/symfony-console-bridge
 
 ### Symfony
 
-To use this library with the [Symfony](http://symfony.com) framework, please use the dedacated bundle: [hoathis/symfony-console-bundle](https://github.com/hoaproject/Contributions-Symfony-ConsoleBundle).
+To use this library with the [Symfony](http://symfony.com) framework, please use
+the dedacated bundle:
+[`hoathis/symfony-console-bundle`](http://central.hoa-project.net/Resource/Contributions/Symfony/ConsoleBundle/).
 
 ### Output
 
-`Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput` is an alternative to the native `ConsoleOutput` which is able to detect
-output type and automatically configure verbosity and text decoration.
+`Hoathis\SymfonyConsoleBridge\Output\ConsoleOutput` is an alternative to the
+native `ConsoleOutput` which is able to detect output type and automatically
+configure verbosity and text decoration.
 
-Given you have the following command:
+Let's have the following command:
 
 ```php
 <?php
@@ -90,7 +93,8 @@ $ bin/console output:verbosity
 # I'll be displayed with the verbose verbosity level
 ```
 
-As you will see in your terminal, output will be decorated and verbose by default. But if you run:
+As you will see in your terminal, output will be decorated and verbose by
+default. However if you run:
 
 ```sh
 $ bin/console output:verbosity > output
@@ -99,10 +103,11 @@ $ cat -vet output
 # I'll be displayed with the very verbose verbosity level$
 ```
 
-The verbosity level will automitaclly be switched to very verbose because the output has detected that you were
-redirecting it to a file.
+The verbosity level will automatically be switched to very verbose because the
+output has detected that you were redirecting it to a file.
 
-Here are the rules used to determine verbosity level and text decoration support:
+Here are the rules used to determine verbosity level and text decoration
+support:
 
 |              | Verbosity    | Decoration |
 | ------------ | ------------ | ---------- |
@@ -110,8 +115,9 @@ Here are the rules used to determine verbosity level and text decoration support
 | **Redirect** | very verbose | disabled   |
 | **Terminal** | verbose      | enabled    |
 
-Those rules will only be used if you do not provide any verbosity level using command line arguments. If you want to
-redirect outputs to a file using the debug verbosity level, simply run:
+Those rules will only be used if you do not provide any verbosity level using
+command line arguments. If you want to redirect outputs to a file using the
+debug verbosity level, simply run:
 
 ```sh
 $ bin/console output:verbosity -vvv > output
@@ -120,7 +126,7 @@ $ cat -vet output
 # I'll be displayed with the debug verbosity level$
 ```
 
-You can still force ansi output using the `--ansi` option:
+You can still force ANSI output using the `--ansi` option:
 
 ```sh
 $ bin/console output:verbosity -vvv --ansi | xargs -0 echo -n | cat -vet
@@ -130,14 +136,16 @@ $ bin/console output:verbosity -vvv --ansi | xargs -0 echo -n | cat -vet
 
 ### Formatter
 
-`Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle` will let you do everything you were able to do with the native `symfony/console` formatter with some more cool things:
+`Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle` will let you do
+everything you were able to do with the native `symfony/console` formatter with
+some more cool things:
 
-* Supports `xterm-8color` color names
-* Supports `xterm-256color` color codes
-* **Automatically translates hex color codes**
-* Supports text styling (normal, bold, underlined, blink and inverse)
+* supports `xterm-8color` color names,
+* supports `xterm-256color` color codes,
+* **automatically translates hexadecimal color codes**,
+* supports text styling (normal, bold, underlined, blink and inverse).
 
-To use those new `OutputFormatterStyle`, use the usual API :
+To use those new `OutputFormatterStyle`, use the usual API:
 
 ```php
 <?php
@@ -160,12 +168,13 @@ class Application extends BaseApplication
 
 ```
 
-As you can see in the previous example, you can replace built-in styles by simply redifining them with the new formatter.
+As you can see in the previous example, you can replace built-in styles by
+simply redifining them with the new formatter.
 
 ### Helpers
 
-The real power of the library comes from its helpers: they let you manager every terminal components. You will first have to
-manually load them:
+The real power of the library comes from its helpers: they let you manage every
+terminal components. You will first have to manually load them:
 
 ```php
 <?php
@@ -191,8 +200,8 @@ class Application extends BaseApplication
 
 #### Window
 
-The window helper will let you manipulate the current terminal window. It provides several utility methods, each one
-being bound to an action:
+The window helper will let you manipulate the current terminal window. It
+provides several utility methods, each one being bound to an action:
 
 ```php
 <?php
@@ -219,17 +228,18 @@ $app
 ;
 ```
 
-Many other utility method are available
+Many other utility methods are available:
 
-* `setTitle`, `getTitle`, `getLabel` to manipulate terminal title
-* `setSize`, `getSize`, `move`, `setPosition`, `getPosition` to manipulate window position
-* `minimize`, `restore`, `lower`, `raise` to manipulate window placement
-* `scroll`, `refresh`, `copy` to manipulate window content
+* `setTitle`, `getTitle`, `getLabel` to manipulate terminal title,
+* `setSize`, `getSize`, `move`, `setPosition`, `getPosition` to manipulate
+  window position,
+* `minimize`, `restore`, `lower`, `raise` to manipulate window placement,
+* `scroll`, `refresh`, `copy` to manipulate window content.
 
 #### Cursor
 
-The window helper will let you manipulate the cursor. It provides several utility methods, each one
-being bound to an action:
+The window helper will let you manipulate the cursor. It provides several
+utility methods, each one being bound to an action:
 
 ```php
 <?php
@@ -267,22 +277,26 @@ $app
 ;
 ```
 
-Many other utility method are available
+Many other utility method are available:
 
-* `move`, `moveTo` to change cursor position, `getPosition` to retrieve the current position
-* `save` and `restore` to save and restore cursor position
-* `clear` to clear whole or part of the screen
-* `hide`, `show` and `style` to change cursor display options
-* `colorize` and `reset` to manage text styling
-* `bip` to emit a bell
+* `move`, `moveTo` to change cursor position, `getPosition` to retrieve the
+  current cursor position,
+* `save` and `restore` to save and restore the cursor position,
+* `clear` to clear whole or part of the screen,
+* `hide`, `show` and `style` to change cursor display options,
+* `colorize` and `reset` to manage text styling,
+* `bip` to emit a bell.
 
 #### Readline
 
-The readline helper will help you gather inputs from the user. It provides some methods to ask and validates user's inputs:
+The readline helper will help you gather inputs from the user. It provides some
+methods to ask and validates user's inputs:
 
-* `read` will prompt the user for an input
-* `select` will display a list of choices to the user and let him select one or more values
-* `validate` will keep asking for an input until it validates against a validator you provide
+* `read` will prompt the user for an input,
+* `select` will display a list of choices to the user and let him select one or
+  more values,
+* `validate` will keep asking for an input until it validates against a
+  validator you provide.
 
 ```php
 <?php
@@ -313,13 +327,15 @@ $app
         });
 ```
 
-Note that for `select` you can provide a special choice that will display as a separator using
-`'label' => ReadlineHelper::SEPARATOR` items in you choices list.
+Note that for `select` you can provide a special choice that will display as a
+separator using `'label' => ReadlineHelper::SEPARATOR` items in you choices
+list.
 
 #### Pager
 
-The pager helper will let you display outputs through a pager so the user can easily read and scroll at his will. The helper
-provides two pagers: `less` and  `more`. You will have to fedd them using a closure wrapping code producing output:
+The pager helper will let you display outputs through a pager so the user can
+easily read and scroll. The helper provides two pagers: `less` and `more`. You
+will have to feed them using a closure wrapping code producing output:
 
 ```php
 <?php
