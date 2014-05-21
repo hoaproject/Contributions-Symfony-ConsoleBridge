@@ -3,7 +3,7 @@
 Hoa is a **modular**, **extensible** and **structured** set of PHP libraries.
 Moreover, Hoa aims at being a bridge between industrial and research worlds.
 
-# Hoathis\SymfonyConsoleBridge [![Build Status](https://travis-ci.org/hoaproject/HoathisSymfonyConsoleBridge.png?branch=master)](https://travis-ci.org/hoaproject/HoathisSymfonyConsoleBridge)
+# Hoathis\SymfonyConsoleBridge [![Build Status](https://travis-ci.org/hoaproject/Contributions-Symfony-ConsoleBridge.png?branch=master)](https://travis-ci.org/hoaproject/Contributions-Symfony-ConsoleBridge)
 
 * [Installation](#installation)
 * [How to use](#how-to-use)
