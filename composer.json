@@ -1,8 +1,8 @@
 {
-    "name": "hoathis/symfony-console-bridge",
+    "name"       : "hoathis/symfony-console-bridge",
     "description": "The Hoa\\Console Symfony 2 bridge.",
     "type"       : "library",
-    "keywords"   : ["library", "symfony", "console", "bridge"],
+    "keywords"   : ["library", "hoa", "symfony", "console", "bridge"],
     "homepage"   : "http://hoa-project.net/",
     "license"    : "BSD-3-Clause",
     "authors"    : [
@@ -19,24 +19,25 @@
             "homepage": "http://hoa-project.net/"
         }
     ],
+    "support": {
+        "email" : "support@lists.hoa-project.net",
+        "irc"   : "irc://irc.freenode.org/hoaproject",
+        "source": "http://git.hoa-project.net/"
+    },
     "require": {
-        "php": ">=5.3.3",
-        "hoa/console": "*@dev",
-            "hoa/core": "*@dev",
-            "hoa/string": "*@dev",
-            "hoa/stream": "*@dev",
+        "php"            : ">=5.3.3",
+        "hoa/console"    : "*@dev",
+            "hoa/core"   : "*@dev",
+            "hoa/string" : "*@dev",
+            "hoa/stream" : "*@dev",
         "symfony/console": ">=2.3.6,<2.5.0"
     },
     "require-dev": {
         "atoum/atoum": "dev-master"
     },
     "target-dir": "Hoathis/SymfonyConsoleBridge",
-    "autoload": {
-        "psr-0": {
-            "Hoathis\\SymfonyConsoleBridge\\": "."
-        }
-    },
-    "config": {
+    "autoload"  : { "psr-0" : { "Hoathis\\SymfonyConsoleBridge\\": "." } },
+    "config"    : {
         "bin-dir": "bin/"
     }
 }
