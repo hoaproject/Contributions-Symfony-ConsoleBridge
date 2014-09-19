@@ -25,8 +25,8 @@
         "source": "http://git.hoa-project.net/"
     },
     "require": {
-        "php"            : ">=5.4.0",
-        "hoa/console"    : "~2.0",
+        "php"            : ">=5.3.3",
+        "hoa/console"    : ">=1.0,<3.0",
         "symfony/console": ">=2.3.6,<2.6.0"
     },
     "require-dev": {
