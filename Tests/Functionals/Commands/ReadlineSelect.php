@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 return function(Application $application, callable $highlight) {
     return $application
         ->register('helper:readline:select')
-            ->setDescription('Tests readline select multi')
+            ->setDescription('Tests readline select')
             ->addOption('multi', null, InputOption::VALUE_NONE)
             ->setCode(function(InputInterface $input, OutputInterface $output) use($application, $highlight) {
                 $helper = new ReadlineHelper();

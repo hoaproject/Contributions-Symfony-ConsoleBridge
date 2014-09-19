@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output;
 
 return function(Application $application, callable $highlight) {
     return $application->register('helper:cursor:draw')
-        ->setDescription('Tests readline select')
+        ->setDescription('Tests cursor helper')
         ->setCode(function(Input\InputInterface $input, Output\OutputInterface $output) use($application, $highlight) {
             (new Helper\WindowHelper())->scroll($output, 'up', 2);
             $colors = ['red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF'];

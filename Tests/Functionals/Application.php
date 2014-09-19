@@ -14,7 +14,7 @@ $application = new Application('Hoathis\SymfonyConsoleBridge');
 $application
     ->register('highlight')
         ->setDescription('Highlights PHP code')
-        ->addArgument('file')
+        ->addArgument('file', Input\InputArgument::REQUIRED)
         ->addArgument('lines', Input\InputArgument::OPTIONAL | Input\InputArgument::IS_ARRAY)
         ->setCode(function(Input\InputInterface $input, Output\OutputInterface $output) {
             $formatter = new Highlighter(file_get_contents($input->getArgument('file')));

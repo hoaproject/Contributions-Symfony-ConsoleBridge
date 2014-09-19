@@ -8,6 +8,15 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 
 const T_PUNCTUATION = 390;
 
+if (false === defined('T_FINALLY')) {
+    define('T_FINALLY', 340);
+}
+
+
+if (false === defined('T_YIELD')) {
+    define('T_YIELD', 267);
+}
+
 class Highlighter
 {
     const TOKEN_TYPE = 0;
@@ -155,7 +164,12 @@ class Highlighter
 
         foreach ($this->tokens as $number => $line) {
             $highlighted = in_array($number, $this->highlights);
-            $padding = $this->maxlength - $this->length[$number];
+
+            if (isset($this->length[$number])) {
+                $padding = $this->maxlength - $this->length[$number];
+            } else {
+                $padding = max($this->length);
+            }
 
             $formatted .= $this->gutter($number, $highlighted);
             $formatted .= $this->line($line, $padding, $highlighted);
