@@ -238,7 +238,7 @@ Many other utility methods are available:
 
 #### Cursor
 
-The window helper will let you manipulate the cursor. It provides several
+The cursor helper will let you manipulate the cursor. It provides several
 utility methods, each one being bound to an action:
 
 ```php
