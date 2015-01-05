@@ -25,11 +25,7 @@ Add these lines to your `require-dev` section:
 ```json
 {
     "require": {
-        "hoa/console": "*@dev",
-            "hoa/core": "*@dev",
-            "hoa/string": "*@dev",
-            "hoa/stream": "*@dev",
-        "hoathis/symfony-console-bridge": "dev-master"
+        "hoathis/symfony-console-bridge": "0.*"
     }
 }
 ```
