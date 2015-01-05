@@ -30,7 +30,7 @@
         "symfony/console": ">=2.3.6,<2.6.0"
     },
     "require-dev": {
-        "atoum/atoum": "dev-master"
+        "atoum/atoum": "~1.0"
     },
     "target-dir": "Hoathis/SymfonyConsoleBridge",
     "autoload"  : { "psr-0" : { "Hoathis\\SymfonyConsoleBridge\\": "." } },
