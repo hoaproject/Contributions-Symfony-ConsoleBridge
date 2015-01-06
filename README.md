@@ -293,6 +293,7 @@ The readline helper will help you gather inputs from the user. It provides some
 methods to ask and validates user's inputs:
 
 * `read` will prompt the user for an input,
+* `autocomplete` will display a prompt and let the user input text and use autocompletion,
 * `select` will display a list of choices to the user and let him select one or
   more values,
 * `validate` will keep asking for an input until it validates against a

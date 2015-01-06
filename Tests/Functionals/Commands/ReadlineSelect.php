@@ -18,7 +18,7 @@ return function(Application $application, callable $highlight) {
 
                 $selection = (array) $helper->select(
                     $output,
-                    $input->getOption('multi') ? 'Select some values:' : 'Select a value:',
+                    $input->getOption('multi') ? 'Select some values: ' : 'Select a value: ',
                     [
                         '<info>php</info>' => ReadlineHelper::SEPARATOR,
                         'hoa', 'symfony', 'laravel',

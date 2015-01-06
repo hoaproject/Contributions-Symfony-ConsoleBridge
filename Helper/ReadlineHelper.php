@@ -2,6 +2,7 @@
 
 namespace Hoathis\SymfonyConsoleBridge\Helper;
 
+use Hoa\Console\Readline\Autocompleter\Autocompleter;
 use Hoa\Console\Readline\Autocompleter\Word;
 use Hoa\Console\Readline\Readline;
 use Symfony\Component\Console\Helper\Helper;
@@ -25,10 +26,16 @@ class ReadlineHelper extends Helper
 
     public function read(OutputInterface $output, $message, $default = null)
     {
-        $message .= ($default ? sprintf(' (<comment>%s</comment>)', $default) : '');
         $message = $output->getFormatter()->format($message);
 
         return $this->readline->readLine($message) ?: $default;
+    }
+
+    public function autocomplete(OutputInterface $output, $message, Autocompleter $autocompleter, $validator = null, $default = null)
+    {
+        $this->readline->setAutocompleter($autocompleter);
+
+        return $this->validate($output, $message, $validator ?: function() { return true; }, $default);
     }
 
     public function select(OutputInterface $output, $message, array $choices, $default = null, $keyAsValues = false, $multi = false, Word $autocompleter = null)
@@ -47,26 +54,22 @@ class ReadlineHelper extends Helper
             $autocompleter->setWords($words);
         }
 
-        $this->readline->setAutocompleter($autocompleter);
-
-        $first = true;
+        $list = '';
         foreach ($choices as $key => $value) {
             if(self::SEPARATOR === $value) {
-                $message .= PHP_EOL;
-
                 if(is_string($key)) {
-                    $message .= ($first ? '' : PHP_EOL) . $key;
+                    $list .= $key;
                 }
             } else {
                 if($keyAsValues) {
-                    $message .= PHP_EOL . sprintf(
+                    $list .= sprintf(
                         '%s%s: %s',
                         null !== $default && $key === $default ? '* ' : '  ',
                         sprintf($keyAsValues ? '<comment>%s</comment>' : '%s', $key),
                         sprintf($keyAsValues ? '%s' : '<comment>%s</comment>', $value)
                     );
                 } else {
-                    $message .= PHP_EOL . sprintf(
+                    $list .= sprintf(
                         '%s%s',
                         null !== $default && $value === $default ? '* ' : '  ',
                         sprintf($keyAsValues ? '%s' : '<comment>%s</comment>', $value)
@@ -74,25 +77,22 @@ class ReadlineHelper extends Helper
                 }
             }
 
-            $first = false;
+            $list .= PHP_EOL;
         }
 
-        $output->writeln($message);
+        $output->writeln($list);
 
-        $input = $this->validate(
-            $output,
-            ': ',
-            function($data) use ($values, $multi) {
-                if (true === $multi) {
-                    $data = explode(' ', $data);
-                } else {
-                    $data = array($data);
-                }
+        $validator = function($data) use ($values, $multi) {
+            if (true === $multi) {
+                $data = explode(' ', $data);
+            } else {
+                $data = array($data);
+            }
 
-                return array_intersect($data, $values) === $data;
-            },
-            $default
-        );
+            return array_intersect($data, $values) === $data;
+        };
+
+        $input = $this->autocomplete($output, $message, $autocompleter, $validator, $default);
 
         if (true === $multi) {
             $input = explode(' ', $input);
