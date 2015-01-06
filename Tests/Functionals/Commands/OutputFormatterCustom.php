@@ -13,11 +13,11 @@ return function(Application $application, callable $highlight) {
             ->setCode(function(InputInterface $input, OutputInterface $output) use($application, $highlight) {
                 $output->writeln('<fg=#FF00FF> fg=#FF00FF </fg=#FF00FF>');
                 $output->writeln('<fg=#FF00FF;bg=white> fg=#FF00FF;bg=white </fg=#FF00FF;bg=white>');
-                $output->writeln([
+                $output->writeln(array(
                     '<fg=#FF00FF;bg=white;options=inverse;options=underlined>',
                     'fg=#FF00FF;bg=white;options=inverse;options=underlined',
                     '</fg=#FF00FF;bg=white;options=inverse;options=underlined>'
-                ]);
+                ));
 
                 $highlight(__FILE__, range(16, 22), $input, $output);
             });

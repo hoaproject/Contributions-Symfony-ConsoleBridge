@@ -28,6 +28,6 @@ return function(Application $application, callable $highlight) {
 
                 $output->writeln(sprintf('<info>You selected</info>: %s', $path));
 
-                $highlight(__FILE__, array_merge([20, 27]), $input, $output);
+                $highlight(__FILE__, array(20, 27), $input, $output);
             });
 };

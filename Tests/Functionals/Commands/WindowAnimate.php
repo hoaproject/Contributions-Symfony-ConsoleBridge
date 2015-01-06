@@ -26,6 +26,6 @@ return function(Application $application, callable $highlight) {
                 sleep(1);
                 $window->restore($output);
 
-                $highlight(__FILE__, array_merge([5, 15, 19, 21, 25, 27]), $input, $output);
+                $highlight(__FILE__, array(5, 15, 19, 21, 25, 27), $input, $output);
             });
 };

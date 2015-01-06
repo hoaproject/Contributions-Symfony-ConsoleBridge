@@ -21,6 +21,6 @@ return function(Application $application, callable $highlight) {
                     }
                 );
 
-                $highlight(__FILE__, array_merge([5, 15], range(17, 22)), $input, $output);
+                $highlight(__FILE__, array_merge(array(5, 15), range(17, 22)), $input, $output);
             });
 };

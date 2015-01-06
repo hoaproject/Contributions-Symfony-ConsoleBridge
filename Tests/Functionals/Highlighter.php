@@ -87,10 +87,10 @@ class Highlighter
         )
     );
 
-    protected $tokens = [];
-    protected $highlights = [];
+    protected $tokens = array();
+    protected $highlights = array();
     protected $maxlength = 0;
-    protected $length = [];
+    protected $length = array();
 
     public function __construct($content)
     {
@@ -109,7 +109,7 @@ class Highlighter
             }
 
             if (false === isset($normalized[$linenum])) {
-                $normalized[$linenum] = [];
+                $normalized[$linenum] = array();
             }
 
             if (false === strpos($token[self::TOKEN_VALUE], PHP_EOL)) {
@@ -120,16 +120,16 @@ class Highlighter
 
                 foreach ($lines as $num => $line) {
                     if (false === isset($normalized[$linenum])) {
-                        $normalized[$linenum] = [];
+                        $normalized[$linenum] = array();
                     }
 
                     if('' !== $line) {
-                        $normalized[$linenum][] = [
+                        $normalized[$linenum][] = array(
                             $token[self::TOKEN_TYPE],
                             $line,
                             $linenum,
                             'self'
-                        ];
+                        );
                         $length += strlen($line);
                     }
 

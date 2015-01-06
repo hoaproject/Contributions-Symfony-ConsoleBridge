@@ -11,7 +11,7 @@ return function(Application $application, callable $highlight) {
         ->register('output:formatter:native')
             ->setDescription('Tests native formatter styles')
             ->setCode(function(InputInterface $input, OutputInterface $output) use ($application, $highlight) {
-                foreach (['info', 'comment', 'error', 'question'] as $style) {
+                foreach (array('info', 'comment', 'error', 'question') as $style) {
                     $output->writeln(sprintf('<%1$s> %1$s text <%1$s>', $style));
                 }
 

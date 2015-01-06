@@ -12,7 +12,7 @@ return function(Application $application, callable $highlight) {
         ->setDescription('Tests cursor helper')
         ->setCode(function(Input\InputInterface $input, Output\OutputInterface $output) use($application, $highlight) {
             (new Helper\WindowHelper())->scroll($output, 'up', 2);
-            $colors = ['red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF'];
+            $colors = array('red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF');
 
             $helper = new Helper\CursorHelper();
             $helper->hide($output)->move($output, 'up', 1);

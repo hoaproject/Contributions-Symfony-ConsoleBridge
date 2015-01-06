@@ -20,7 +20,7 @@ $application
             $formatter = new Highlighter(file_get_contents($input->getArgument('file')));
             $formatter->highlight($input->getArgument('lines'));
 
-            $output->write([PHP_EOL, Formatter\OutputFormatter::escape($formatter->format())]);
+            $output->write(array(PHP_EOL, Formatter\OutputFormatter::escape($formatter->format())));
         });
 
 foreach (new \RecursiveDirectoryIterator(__DIR__ . '/Commands/', \FilesystemIterator::SKIP_DOTS) as $file) {
@@ -29,10 +29,10 @@ foreach (new \RecursiveDirectoryIterator(__DIR__ . '/Commands/', \FilesystemIter
     $highlight = function($file, array $highlights, Input\InputInterface $input, Output\OutputInterface $output) use($application) {
         if ($input->getOption('no-code') === false && $output->isDecorated()) {
             $application->find('highlight')->run(
-                new Input\ArrayInput([
+                new Input\ArrayInput(array(
                     'file' => $file,
                     'lines' => $highlights
-                ]),
+                )),
                 $output
             );
         }

@@ -19,12 +19,12 @@ return function(Application $application, callable $highlight) {
                 $selection = (array) $helper->select(
                     $output,
                     $input->getOption('multi') ? 'Select some values: ' : 'Select a value: ',
-                    [
+                    array(
                         '<info>php</info>' => ReadlineHelper::SEPARATOR,
                         'hoa', 'symfony', 'laravel',
                         '<info>js</info>' => ReadlineHelper::SEPARATOR,
                         'express', 'connect', 'restify',
-                    ],
+                    ),
                     null,
                     false,
                     $input->getOption('multi')
@@ -32,6 +32,6 @@ return function(Application $application, callable $highlight) {
 
                 $output->writeln(sprintf('<info>You selected</info>: %s', implode(', ', $selection)));
 
-                $highlight(__FILE__, array_merge([5, 17], range(19, 31)), $input, $output);
+                $highlight(__FILE__, array_merge(array(5, 17), range(19, 31)), $input, $output);
             });
 };
