@@ -6,7 +6,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-return function(Application $application, callable $highlight) {
+return function(Application $application, \Closure $highlight) {
     return $application
         ->register('output:verbosity')
             ->setDescription('Tests verbosity levels')

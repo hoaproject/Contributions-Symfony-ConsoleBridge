@@ -7,7 +7,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input;
 use Symfony\Component\Console\Output;
 
-return function(Application $application, callable $highlight) {
+return function(Application $application, \Closure $highlight) {
     return $application->register('helper:cursor:draw')
         ->setDescription('Tests cursor helper')
         ->setCode(function(Input\InputInterface $input, Output\OutputInterface $output) use($application, $highlight) {
