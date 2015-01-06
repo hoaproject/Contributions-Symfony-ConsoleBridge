@@ -32,9 +32,12 @@
     "require-dev": {
         "atoum/atoum": "~1.0"
     },
-    "target-dir": "Hoathis/SymfonyConsoleBridge",
-    "autoload"  : { "psr-0" : { "Hoathis\\SymfonyConsoleBridge\\": "." } },
-    "config"    : {
+    "autoload": {
+        "psr-4": {
+            "Hoathis\\SymfonyConsoleBridge\\": "."
+        }
+    },
+    "config": {
         "bin-dir": "bin/"
     }
 }
