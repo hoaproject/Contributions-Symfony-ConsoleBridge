@@ -15,6 +15,7 @@ Moreover, Hoa aims at being a bridge between industrial and research worlds.
     * [Cursor](#cursor)
     * [Readline](#readline)
     * [Pager](#pager)
+    * [Tput](#tput)
 
 _All the examples in this readme are available and working in the [test application](Tests/Functionals)._
 
@@ -350,5 +351,27 @@ $app
                     passthru('cat ' . __DIR__ . '/*.php');
                 }
             );
+        });
+```
+
+#### Tput
+
+The tput helper will help you get informed about user's terminal capabilities. The helper provides
+a single entry point to all capabilities: the `get` method. Here is how you would do to get the `clear_screen`
+capability:
+
+```php
+<?php
+
+$app = new Application();
+
+$app
+    ->register('helper:tput:get')
+        ->setCode(function(InputInterface $input, OutputInterface $output) use($app) {
+            $tput = new TputHelper();
+            $capability = 'clear_screen';
+            $value = $tput->get($capability);
+
+            $output->writeln(sprintf('<info>%s</info>: %s', $capability, $value));
         });
 ```
