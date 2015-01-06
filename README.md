@@ -131,6 +131,8 @@ $ bin/console output:verbosity -vvv --ansi | xargs -0 echo -n | cat -vet
 # I'll be displayed with the ^[[38;5;96mdebug^[[39;49;0m verbosity level$
 ```
 
+> Want to try it? Run `bin/console output:verbosity` to get a live demo and code snippet.
+
 ### Formatter
 
 `Hoathis\SymfonyConsoleBridge\Formatter\OutputFormatterStyle` will let you do
@@ -168,6 +170,8 @@ class Application extends BaseApplication
 As you can see in the previous example, you can replace built-in styles by
 simply redifining them with the new formatter.
 
+> Want to try it? Run `bin/console output:formatter:custom` or `bin/console output:formatter:native` to get a live demo and code snippet.
+
 ### Helpers
 
 The real power of the library comes from its helpers: they let you manage every
@@ -194,6 +198,8 @@ class Application extends BaseApplication
 }
 
 ```
+
+> Every helper has a dedicated test command. Just run `bin/console list` to get a list.
 
 #### Window
 
@@ -232,6 +238,8 @@ Many other utility methods are available:
   window position,
 * `minimize`, `restore`, `lower`, `raise` to manipulate window placement,
 * `scroll`, `refresh`, `copy` to manipulate window content.
+
+> Want to try it? Run `bin/console helper:window:animate` to get a live demo and code snippet.
 
 #### Cursor
 
@@ -284,6 +292,8 @@ Many other utility method are available:
 * `colorize` and `reset` to manage text styling,
 * `bip` to emit a bell.
 
+> Want to try it? Run `bin/console helper:cursor:draw` to get a live demo and code snippet.
+
 #### Readline
 
 The readline helper will help you gather inputs from the user. It provides some
@@ -329,6 +339,8 @@ Note that for `select` you can provide a special choice that will display as a
 separator using `'label' => ReadlineHelper::SEPARATOR` items in you choices
 list.
 
+> Want to try it? Run `bin/console helper:readline:select` or `bin/console helper:readline:autocomplete` to get a live demo and code snippet.
+
 #### Pager
 
 The pager helper will let you display outputs through a pager so the user can
@@ -354,6 +366,8 @@ $app
         });
 ```
 
+> Want to try it? Run `bin/console helper:pager:less` or `bin/console helper:pager:more` to get a live demo and code snippet.
+
 #### Tput
 
 The tput helper will help you get informed about user's terminal capabilities. The helper provides
@@ -375,3 +389,5 @@ $app
             $output->writeln(sprintf('<info>%s</info>: %s', $capability, $value));
         });
 ```
+
+> Want to try it? Run `bin/console helper:tput:capabilities` or `bin/console helper:tput:echo` or `bin/console helper:tput:get` to get a live demo and code snippet.
