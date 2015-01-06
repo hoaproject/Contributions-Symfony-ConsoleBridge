@@ -26,9 +26,9 @@ cache:
         - $COMPOSER_CACHE_DIR
 
 before_script:
-    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && composer require --prefer-source --dev symfony/console:${SYMFONY_CONSOLE_VERSION} || true"
-    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && composer install || true"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" = '3.0.*@dev' && -z \"$(php -v | grep '5.5')\" ]] && true || composer require --prefer-source --dev symfony/console:${SYMFONY_CONSOLE_VERSION}"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" = '3.0.*@dev' && -z \"$(php -v | grep '5.5')\" ]] && true || composer install"
 
 script:
-    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && bin/atoum || true"
-    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && bin/console || true"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" = '3.0.*@dev' && -z \"$(php -v | grep '5.5')\" ]] && true || bin/atoum"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" = '3.0.*@dev' && -z \"$(php -v | grep '5.5')\" ]] && true || bin/console"
