@@ -1,4 +1,5 @@
 language: php
+sudo: false
 
 php:
     - 5.3
@@ -7,20 +8,27 @@ php:
     - 5.6
 
 env:
-  - SYMFONY_CONSOLE_VERSION=~2.3.6
-  - SYMFONY_CONSOLE_VERSION=2.4.*
-  - SYMFONY_CONSOLE_VERSION=2.5.*
-  - SYMFONY_CONSOLE_VERSION=2.6.*
-  - SYMFONY_CONSOLE_VERSION=2.7.*@dev
-  - SYMFONY_CONSOLE_VERSION=3.0.*@dev
+    - SYMFONY_CONSOLE_VERSION=~2.3.6
+    - SYMFONY_CONSOLE_VERSION=2.4.*
+    - SYMFONY_CONSOLE_VERSION=2.5.*
+    - SYMFONY_CONSOLE_VERSION=2.6.*
+    - SYMFONY_CONSOLE_VERSION=2.7.*@dev
+    - SYMFONY_CONSOLE_VERSION=3.0.*@dev
+
+matrix:
+    fast_finish: true
+    allow_failures:
+        - env: SYMFONY_CONSOLE_VERSION=2.7.*@dev
+        - env: SYMFONY_CONSOLE_VERSION=3.0.*@dev
 
 cache:
-  directories:
-    - $COMPOSER_CACHE_DIR
+    directories:
+        - $COMPOSER_CACHE_DIR
 
 before_script:
-    - composer require --prefer-source --dev symfony/console:${SYMFONY_CONSOLE_VERSION}
-    - composer install
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && composer require --prefer-source --dev symfony/console:${SYMFONY_CONSOLE_VERSION} || true"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && composer install || true"
 
 script:
-    - bin/atoum
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && bin/atoum || true"
+    - "[[ \"$SYMFONY_CONSOLE_VERSION\" != '3.0.*@dev' || -n \"$(php -v | grep '5.5')\" ]] && bin/console || true"
