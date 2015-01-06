@@ -11,7 +11,9 @@ return function(Application $application, \Closure $highlight) {
     return $application->register('helper:cursor:draw')
         ->setDescription('Tests cursor helper')
         ->setCode(function(Input\InputInterface $input, Output\OutputInterface $output) use($application, $highlight) {
-            (new Helper\WindowHelper())->scroll($output, 'up', 2);
+            $window = new Helper\WindowHelper();
+            $window->scroll($output, 'up', 2);
+
             $colors = array('red', '#FFCC33', 'yellow', 'green', 'blue', '#003DF5', '#6633FF');
 
             $helper = new Helper\CursorHelper();
@@ -33,6 +35,6 @@ return function(Application $application, \Closure $highlight) {
                 ->reset($output)
                 ->show($output);
 
-            $highlight(__FILE__, range(17, 34), $input, $output);
+            $highlight(__FILE__, range(19, 36), $input, $output);
         });
 };
