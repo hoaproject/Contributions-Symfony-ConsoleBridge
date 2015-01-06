@@ -10,7 +10,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-return function(Application $application, callable $highlight) {
+return function(Application $application, \Closure $highlight) {
     return $application
         ->register('helper:tput:get')
             ->setDescription('Returns a tput capability')
@@ -18,20 +18,21 @@ return function(Application $application, callable $highlight) {
                 $tput = new TputHelper();
                 $helper = new ReadlineHelper();
 
+                $capabilities = $tput->getInformations();
                 $capability = $helper->autocomplete(
                     $output,
                     'Select a capability (TAB-TAB to autocomplete): ',
                     new Word(
                         array_keys(array_merge(
-                            $tput->getInformations()['strings'],
-                            $tput->getInformations()['numbers'],
-                            $tput->getInformations()['booleans']
+                            $capabilities['strings'],
+                            $capabilities['numbers'],
+                            $capabilities['booleans']
                         ))
                     )
                 );
 
                 $output->writeln(sprintf('<info>%s</info>: %s', $capability, var_export($tput->get($capability), true)));
 
-                $highlight(__FILE__, array_merge(range(23, 27), [17, 33]), $input, $output);
+                $highlight(__FILE__, array(18, 21, 34), $input, $output);
             });
 };

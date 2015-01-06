@@ -9,19 +9,18 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-return function(Application $application, callable $highlight) {
+return function(Application $application, \Closure $highlight) {
     return $application
         ->register('helper:tput:capabilities')
             ->setDescription('Lists tput capabilities')
             ->setCode(function(InputInterface $input, OutputInterface $output) use($application, $highlight) {
-
                 $helper = new ReadlineHelper();
                 $pager = new PagerHelper();
 
                 $type = $helper->select(
                     $output,
                     'Select capabilities type: ',
-                    ['strings', 'numbers', 'booleans']
+                    array('strings', 'numbers', 'booleans')
                 );
 
                 $pager->less($output, function() use ($output, $type) {
@@ -33,7 +32,7 @@ return function(Application $application, callable $highlight) {
                     }
                 });
 
-                $highlight(__FILE__, array_merge(range(28, 33)), $input, $output);
+                $highlight(__FILE__, range(27, 32), $input, $output);
             });
 
 };
