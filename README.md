@@ -25,7 +25,7 @@ Add these lines to your `require-dev` section:
 ```json
 {
     "require": {
-        "hoathis/symfony-console-bridge": "0.*"
+        "hoathis/symfony-console-bridge": "~1.0"
     }
 }
 ```
