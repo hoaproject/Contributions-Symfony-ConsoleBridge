@@ -21,7 +21,8 @@ _All the examples in this readme are available and working in the [test applicat
 
 ## Installation
 
-Add these lines to your `require-dev` section:
+With [Composer](http://getcomposer.org/), to include this library into your dependencies, you need to require
+[`hoathis/symfony-console-bridge`](https://packagist.org/packages/hoathis/symfony-console-bridge):
 
 ```json
 {
@@ -31,7 +32,9 @@ Add these lines to your `require-dev` section:
 }
 ```
 
-Then install dependencies:
+Please, read the website to [get more informations about how to install](http://hoa-project.net/Source.html).
+
+Finally, install dependencies:
 
 ```sh
 $ composer update hoathis/symfony-console-bridge
