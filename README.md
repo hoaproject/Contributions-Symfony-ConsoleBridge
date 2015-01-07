@@ -17,7 +17,8 @@ Moreover, Hoa aims at being a bridge between industrial and research worlds.
     * [Pager](#pager)
     * [Tput](#tput)
 
-_All the examples in this readme are available and working in the [test application](Tests/Functionals)._
+_All the examples in this readme are available and working in the [test
+application](http://central.hoa-project.net/Resource/Contributions/Symfony/ConsoleBridge/Tests/Functionals)._
 
 ## Installation
 
